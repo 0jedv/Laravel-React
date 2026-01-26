@@ -1,0 +1,17 @@
+.card-first {
+    background-color: hwb(0 12% 26%);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.712);
+    color: #fff;
+}
+
+.card-second {
+    background-color: hwb(0 12% 26%);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.712);
+    color: #fff;
+}

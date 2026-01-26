@@ -1,8 +1,11 @@
+import { useState } from 'react';
+
 export default function Welcome() {
     // 1. Definimos variables (lógica de JavaScript)
     const nombreUsuario = "Rubén Ojeda";
     const tareasPendientes = ["Instalar Laravel", "Configurar React", "Aprender Tailwind", "Rehacer Curriculum"];
     const fechaActual = new Date().toLocaleDateString();
+    const [contador, setContador] = useState(0);
 
     return (
         <div className="min-h-screen bg-slate-100 flex flex-col items-center justify-center p-6">
@@ -36,10 +39,13 @@ export default function Welcome() {
             </div>
 
             <div className="mt-10 flex gap-4">
-                <button className="bg-indigo-500 text-white px-6 py-2 rounded-lg hover:bg-indigo-600 transition">
-                    Nueva Tarea
+                <button 
+                    className={`px-6 py-2 rounded-lg transition ${contador === 10 ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-indigo-500 text-white hover:bg-indigo-600'}`} 
+                    onClick={() => setContador(contador + 1)}
+                >
+                    {contador === 10 ? "¡Lista Llena!" : "Nueva Tarea"}
                 </button>
             </div>
-        </div>
+        </div >
     );
 }

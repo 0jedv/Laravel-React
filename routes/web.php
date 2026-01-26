@@ -4,6 +4,19 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Models\Proyecto;
+
+Route::get('/crear-proyecto', function () {
+    
+    // 2. Pedirle al modelo que cree uno nuevo
+    $nuevo = Proyecto::create([
+        'nombre' => 'App de Tareas',
+        'descripcion' => 'Una app para organizar el día',
+        'presupuesto' => 1200
+    ]);
+
+    return "¡Proyecto creado! ID: " . $nuevo->id;
+});
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -12,6 +25,14 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
+});
+
+Route::get('/users-view', function () {
+    return Inertia::render('UserList');
+});
+
+Route::get('/projects-view', function () {
+    return Inertia::render('ProyectsList');
 });
 
 Route::get('/dashboard', function () {
