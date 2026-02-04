@@ -3,9 +3,18 @@ import { useState } from 'react';
 export default function Welcome() {
     // 1. Definimos variables (lógica de JavaScript)
     const nombreUsuario = "Rubén Ojeda";
-    const tareasPendientes = ["Instalar Laravel", "Configurar React", "Aprender Tailwind", "Rehacer Curriculum"];
+    const [tareasPendientes, setTareasPendientes] = useState(["Instalar Laravel", "Configurar React", "Aprender Tailwind", "Rehacer Curriculum"]);
     const fechaActual = new Date().toLocaleDateString();
-    const [contador, setContador] = useState(0);
+    const [cont, setCont] = useState(0);
+    const [nuevaTarea, setNuevaTarea] = useState("");
+
+    const agregarTarea = () => {
+        if (cont < 10 && nuevaTarea.trim() !== "") {
+            setCont(cont + 1);
+            setTareasPendientes([...tareasPendientes, nuevaTarea]);
+            setNuevaTarea("");
+        }
+    };
 
     return (
         <div className="min-h-screen bg-slate-100 flex flex-col items-center justify-center p-6">
@@ -38,12 +47,21 @@ export default function Welcome() {
 
             </div>
 
-            <div className="mt-10 flex gap-4">
-                <button 
-                    className={`px-6 py-2 rounded-lg transition ${contador === 10 ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-indigo-500 text-white hover:bg-indigo-600'}`} 
-                    onClick={() => setContador(contador + 1)}
+            <div className="mt-10 flex gap-4 items-center">
+                <input
+                    type="text"
+                    value={nuevaTarea}
+                    onChange={(e) => setNuevaTarea(e.target.value)}
+                    placeholder="Escribe una tarea..."
+                    className="px-4 py-2 border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    disabled={cont >= 10}
+                />
+                <button
+                    className={`px-6 py-2 rounded-lg transition ${cont >= 10 ? 'bg-red-500 text-white hover:bg-red-600' : 'bg-indigo-500 text-white hover:bg-indigo-600'}`}
+                    onClick={agregarTarea}
+                    disabled={cont >= 10}
                 >
-                    {contador === 10 ? "¡Lista Llena!" : "Nueva Tarea"}
+                    {cont >= 10 ? "¡Lista Llena!" : "Nueva Tarea"}
                 </button>
             </div>
         </div >
