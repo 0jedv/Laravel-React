@@ -2,6 +2,8 @@ import { useState, useRef, useEffect } from 'react';
 import { router } from '@inertiajs/react';
 
 export default function TaskItem({ task }) {
+
+export default function TaskItem({ task, onToggle, onUpdate }) {
     const [isEditing, setIsEditing] = useState(false);
     const [editValue, setEditValue] = useState(task.title);
     const inputRef = useRef(null);
@@ -37,6 +39,13 @@ export default function TaskItem({ task }) {
         } else {
             setIsEditing(false);
         }
+    const handleUpdate = () => {
+        if (editValue.trim() === "") {
+            setEditValue(task.title); // Revert to original if empty
+        } else {
+            onUpdate(task.id, editValue);
+        }
+        setIsEditing(false);
     };
 
     const handleKeyDown = (e) => {
@@ -51,6 +60,7 @@ export default function TaskItem({ task }) {
                 type="checkbox"
                 checked={task.completed}
                 onChange={handleToggle}
+                onChange={() => onToggle(task.id)}
                 className="w-5 h-5 text-indigo-600 rounded focus:ring-indigo-500 border-gray-300 cursor-pointer"
             />
 
